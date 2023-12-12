@@ -21,3 +21,6 @@ jobs:
         
     - name: Build Docker image
       run: docker build -t pipeline:latest .
+
+    - name: Run Docker image
+      run: docker run -dit -p 5400:80 -p 5401:443 --name service-pipeline pipeline
