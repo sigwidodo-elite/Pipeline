@@ -17,11 +17,6 @@ jobs:
     - name: Checkout Repository
       uses: actions/checkout@v2
 
-    - name: Set up .NET Core
-      uses: actions/setup-dotnet@v5
-      with:
-        dotnet-version: '6.x'
-
     - name: Build the app
       run: dotnet build -c Release
 
