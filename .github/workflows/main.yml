@@ -4,11 +4,14 @@ on:
   push:
     branches:
       - master
+  pull_request:
+    branches:
+      - master
 
 jobs:
   build:
 
-    runs-on: server-training
+    runs-on: [ self-hosted, Linux, X64 ]
 
     steps:
     - name: Checkout Repository
@@ -33,7 +36,7 @@ jobs:
         password: pro.3lite0502!
 
     - name: Build Docker image
-      run: docker build -t myapp:latest .
+      run: docker build -t pipeline:latest .
 
     - name: Push Docker image
-      run: docker push myapp:latest
+      run: docker push pipeline:latest
