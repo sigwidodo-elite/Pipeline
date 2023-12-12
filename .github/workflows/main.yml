@@ -1,0 +1,39 @@
+name: .NET Core CI/CD with Docker
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+
+    runs-on: self-hosted
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+
+    - name: Set up .NET Core
+      uses: actions/setup-dotnet@v5
+      with:
+        dotnet-version: '6.x'
+
+    - name: Build the app
+      run: dotnet build -c Release
+
+    - name: Publish the app
+      run: dotnet publish -c Release -o ./publish
+
+    - name: Set up Docker
+      uses: azure/docker-login@v1
+      with:
+        login-server: ${{ secrets.REGISTRY_URL }}
+        username: ${{ secrets.REGISTRY_USERNAME }}
+        password: ${{ secrets.REGISTRY_PASSWORD }}
+
+    - name: Build Docker image
+      run: docker build -t myapp:latest .
+
+    - name: Push Docker image
+      run: docker push myapp:latest
