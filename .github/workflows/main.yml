@@ -8,7 +8,7 @@ on:
 jobs:
   build:
 
-    runs-on: self-hosted
+    runs-on: server-training
 
     steps:
     - name: Checkout Repository
@@ -28,9 +28,9 @@ jobs:
     - name: Set up Docker
       uses: azure/docker-login@v1
       with:
-        login-server: ${{ secrets.REGISTRY_URL }}
-        username: ${{ secrets.REGISTRY_USERNAME }}
-        password: ${{ secrets.REGISTRY_PASSWORD }}
+        login-server: https://hub.docker.com/
+        username: sigwidodoelite
+        password: pro.3lite0502!
 
     - name: Build Docker image
       run: docker build -t myapp:latest .
