@@ -18,22 +18,3 @@ jobs:
       uses: actions/checkout@v1
       with:
         ref: 'master'
-
-    - name: Build the app
-      run: dotnet build -c Release
-
-    - name: Publish the app
-      run: dotnet publish -c Release -o ./publish
-
-    - name: Set up Docker
-      uses: azure/docker-login@v1
-      with:
-        login-server: https://hub.docker.com/
-        username: sigwidodoelite
-        password: pro.3lite0502!
-
-    - name: Build Docker image
-      run: docker build -t pipeline:latest .
-
-    - name: Push Docker image
-      run: docker push pipeline:latest
